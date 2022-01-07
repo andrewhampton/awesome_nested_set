@@ -9,11 +9,11 @@ on:
     branches:
       - master
 jobs:
-
   # SQLITE
   sqlite:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         ruby: ['2.6', '2.7', '3.0']
         gemfile:
@@ -28,7 +28,10 @@ jobs:
 
           # Rails 7 requires Ruby 2.7 or higher
           - ruby: '2.6'
-            gemfile: [ rails_main, rails_7_0 ]
+            gemfile: rails_main
+
+          - ruby: '2.6'
+            gemfile: rails_7_0
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
       BUNDLE_PATH_RELATIVE_TO_CWD: true
@@ -52,6 +55,7 @@ jobs:
   mysql:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         ruby: ['2.6', '2.7', '3.0']
         gemfile:
@@ -66,7 +70,10 @@ jobs:
 
           # Rails 7 requires Ruby 2.7 or higher
           - ruby: '2.6'
-            gemfile: [ rails_main, rails_7_0 ]
+            gemfile: rails_main
+
+          - ruby: '2.6'
+            gemfile: rails_7_0
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
       BUNDLE_PATH_RELATIVE_TO_CWD: true
@@ -105,6 +112,7 @@ jobs:
   postgres:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         ruby: ['2.6', '2.7', '3.0']
         gemfile:
@@ -119,7 +127,10 @@ jobs:
 
           # Rails 7 requires Ruby 2.7 or higher
           - ruby: '2.6'
-            gemfile: [ rails_main, rails_7_0 ]
+            gemfile: rails_7_0
+
+          - ruby: '2.6'
+            gemfile: rails_main
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
       BUNDLE_PATH_RELATIVE_TO_CWD: true
